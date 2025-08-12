@@ -2,6 +2,8 @@
 // SPDX-FileCopyrightText: 2022 mochi-mqtt, mochi-co
 // SPDX-FileContributor: mochi-co
 
+// Note: added PEA hooks
+
 package main
 
 import (
@@ -15,8 +17,8 @@ import (
 	mqtt "github.com/mochi-mqtt/server/v2"
 	//"github.com/mochi-mqtt/server/v2/hooks/auth"
 	"github.com/mochi-mqtt/server/v2/listeners"
-    // Policy enforcement agent module
-    "github.com/MadScienceZone/mqtt-testbed/server/policy"
+	// Policy enforcement agent module
+	"github.com/MadScienceZone/mqtt-testbed/server/policy"
 )
 
 func main() {
@@ -49,10 +51,10 @@ func main() {
 
 	server := mqtt.New(nil)
 	//_ = server.AddHook(new(auth.AllowHook), nil)
-    // Create new hook for PEA
-    if err := server.AddHook(new(policy.PEAHook), nil); err != nil {
-        panic(err)
-    }
+	// Create new hook for PEA
+	if err := server.AddHook(new(policy.PEAHook), nil); err != nil {
+		panic(err)
+	}
 
 	tcp := listeners.NewTCP(listeners.Config{
 		ID:        "t1",
