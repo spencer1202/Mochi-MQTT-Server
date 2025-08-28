@@ -14,11 +14,16 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/spencer1202/Mochi-MQTT-Server/hooks/hookmap"
+
 	mqtt "github.com/mochi-mqtt/server/v2"
+
 	//"github.com/mochi-mqtt/server/v2/hooks/auth"
 	"github.com/mochi-mqtt/server/v2/listeners"
 	// Policy enforcement agent module
-	"github.com/MadScienceZone/mqtt-testbed/server/policy"
+	// "github.com/MadScienceZone/mqtt-testbed/server/policy"
+	// Hook tester module
+	//"github.com/spencer1202/MochiMQTT_TestHooks/broker_analysis/hookmap"
 )
 
 func main() {
@@ -52,7 +57,12 @@ func main() {
 	server := mqtt.New(nil)
 	//_ = server.AddHook(new(auth.AllowHook), nil)
 	// Create new hook for PEA
-	if err := server.AddHook(new(policy.PEAHook), nil); err != nil {
+	//if err := server.AddHook(new(policy.PEAHook), nil); err != nil {
+	//panic(err)
+	//}
+
+	//Create new hook for TestHook
+	if err := server.AddHook(new(hookmap.TestHook), nil); err != nil {
 		panic(err)
 	}
 
